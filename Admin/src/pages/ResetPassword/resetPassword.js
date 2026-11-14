@@ -16,7 +16,7 @@ const ResetPassword = () => {
     const onFinish = async (values) => {
         const resetPassWord = {
                 token: id,
-                newPassword: values.password 
+                newPassword: values.password
         }
         axiosClient.post("/auth/reset-password", resetPassWord)
             .then(function (response) {
@@ -130,6 +130,5 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
-
 
 

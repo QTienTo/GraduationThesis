@@ -4,7 +4,7 @@ const db = require('../config/db');
 exports.addCourt = async (req, res) => {
     try {
         const { name, id_areas, id_field_types, id_users, status, price, image, description } = req.body;
-        
+
         // Kiểm tra xem tên sân đã tồn tại trong cơ sở dữ liệu chưa
         const [existingCourts] = await db.execute('SELECT id FROM courts WHERE name = ?', [name]);
         if (existingCourts.length > 0) {

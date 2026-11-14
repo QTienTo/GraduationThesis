@@ -134,7 +134,7 @@ exports.searchTournaments = async (req, res) => {
 exports.approveTournament = async (req, res) => {
     try {
         const id = req.params.id;
-        const { approval_status } = req.body; 
+        const { approval_status } = req.body;
         // Kiểm tra xem giải đấu tồn tại không
         const [tournament] = await db.execute('SELECT * FROM tournaments WHERE id = ?', [id]);
         if (tournament.length === 0) {
@@ -155,12 +155,11 @@ exports.getTournamentsByUser = async (req, res) => {
     try {
         const id_users = req.params.id;
         const [rows] = await db.execute('SELECT t.*, u.username AS user_name FROM tournaments t JOIN users u ON t.id_users = u.id WHERE t.id_users = ?', [id_users]);
-       
+
             res.status(200).json(rows);
-        
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error getting tournaments by user id' });
     }
 };
-

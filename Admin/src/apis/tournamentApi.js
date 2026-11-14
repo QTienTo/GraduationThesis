@@ -65,6 +65,6 @@ const tournamentApi = {
       throw error;
     }
   }
-}; 
+};
 
 export default tournamentApi;

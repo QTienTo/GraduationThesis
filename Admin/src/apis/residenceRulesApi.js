@@ -54,7 +54,7 @@ const residenceRules = {
         } catch (error) {
             throw error;
         }
-    },  
+    },
 }
 
 export default residenceRules;

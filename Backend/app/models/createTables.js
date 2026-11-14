@@ -81,8 +81,8 @@ const createTables = async () => {
               name VARCHAR(255) NOT NULL,
               id_areas INT NOT NULL,
               id_field_types INT NOT NULL,
-              id_users INT, 
-              approval_status VARCHAR(255) DEFAULT 'pending', 
+              id_users INT,
+              approval_status VARCHAR(255) DEFAULT 'pending',
               status VARCHAR(255) DEFAULT 'active',
               price DECIMAL(10, 2) DEFAULT 0,
               image VARCHAR(500),
@@ -117,7 +117,7 @@ const createTables = async () => {
              item_status VARCHAR(255) DEFAULT 'new',
              id_product_type INT,
              id_user INT,
-             image VARCHAR(500), 
+             image VARCHAR(500),
              FOREIGN KEY (id_product_type) REFERENCES product_types(id),
              FOREIGN KEY (id_user) REFERENCES users(id)
          )
@@ -133,12 +133,12 @@ const createTables = async () => {
                     info TEXT,
                     teams INT DEFAULT 0,
                     matches INT DEFAULT 0,
-                    group_count INT DEFAULT 0, 
+                    group_count INT DEFAULT 0,
                     prizes INT DEFAULT 0,
                     status VARCHAR(255) DEFAULT 'active',
                     approval_status VARCHAR(255) DEFAULT 'pending',
                     id_users INT,
-                    image VARCHAR(500), 
+                    image VARCHAR(500),
                     FOREIGN KEY (id_users) REFERENCES users(id)
                 )
             `);
@@ -170,7 +170,7 @@ const createTables = async () => {
             total_amount DECIMAL(10, 2) NOT NULL,
             status VARCHAR(255) DEFAULT 'pending', -- Tình trạng đặt sân (ví dụ: pending, confirmed, cancelled)
             FOREIGN KEY (user_id) REFERENCES users(id),
-            FOREIGN KEY (court_id) REFERENCES courts(id)  
+            FOREIGN KEY (court_id) REFERENCES courts(id)
         )
         `);
 
@@ -187,7 +187,7 @@ const createTables = async () => {
                 payment_method VARCHAR(255),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES users(id),
-                FOREIGN KEY (product_id) REFERENCES products(id) 
+                FOREIGN KEY (product_id) REFERENCES products(id)
             )
         `);
 

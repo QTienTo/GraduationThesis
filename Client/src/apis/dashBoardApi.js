@@ -9,7 +9,7 @@ const dashBoardApi = {
         } catch (error) {
             throw error;
         }
-    }, 
+    },
 }
 
 export default dashBoardApi;

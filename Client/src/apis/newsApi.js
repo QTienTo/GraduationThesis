@@ -27,7 +27,7 @@ const newsApi = {
         return axiosClient.get(url, { params });
     },
 
-    
+
 }
 
 export default newsApi;

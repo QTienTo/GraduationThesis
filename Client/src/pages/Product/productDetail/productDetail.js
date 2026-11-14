@@ -327,7 +327,7 @@ const ProductDetail = () => {
                                                 <hr></hr>
                                             </div>
                                         ))}
-                                        
+
                                     </div>
                                 );
                             }}

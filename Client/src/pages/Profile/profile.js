@@ -122,7 +122,7 @@ const Profile = () => {
                                             style={{
                                                 width: 150,
                                                 height: 150,
-                                                borderRadius: '50%', 
+                                                borderRadius: '50%',
                                             }}
                                         />
                                     </Row>

@@ -41,7 +41,7 @@ const Login = () => {
   };
 
   const handleForgotPasswordSubmit = async () => {
-    const values = await forgotPasswordForm.validateFields(); 
+    const values = await forgotPasswordForm.validateFields();
     console.log(values.email);
 
     try {
@@ -186,6 +186,5 @@ const Login = () => {
 };
 
 export default Login;
-
 
 

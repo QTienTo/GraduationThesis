@@ -54,7 +54,7 @@ const newsController = {
             res.status(500).send('Internal Server Error');
         }
     },
-    
+
 
     deleteNewsById: async (req, res) => {
         const { id } = req.params;

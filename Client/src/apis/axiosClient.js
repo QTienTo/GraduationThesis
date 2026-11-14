@@ -32,4 +32,4 @@ axiosClient.interceptors.response.use((response) => {
     console.log(error.response.status);
 });
 
-export default axiosClient; 
+export default axiosClient;
