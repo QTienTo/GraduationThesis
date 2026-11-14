@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const notificationController = {
     createNotificationByEmail: async (req, res) => {
         try {
-            const { title, content, emails } = req.body; 
+            const { title, content, emails } = req.body;
 
             // Lưu thông báo vào cơ sở dữ liệu
             const [notificationRows] = await db.execute(

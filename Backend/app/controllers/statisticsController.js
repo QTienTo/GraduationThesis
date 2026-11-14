@@ -4,7 +4,7 @@ const db = require('../config/db');
 exports.countCourtsAndServices = async (req, res) => {
     try {
         const [courts] = await db.execute('SELECT COUNT(*) AS totalCourts FROM courts');
-        const [services] = await db.execute('SELECT COUNT(*) AS totalServices FROM products'); 
+        const [services] = await db.execute('SELECT COUNT(*) AS totalServices FROM products');
         res.status(200).json({ totalCourts: courts[0].totalCourts, totalServices: services[0].totalServices });
     } catch (error) {
         console.error(error);

@@ -228,28 +228,28 @@ const OrderList = () => {
                             border-radius: 0.5rem;
                             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                         }
-    
+
                         .invoice-header {
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
                             margin-bottom: 1rem;
                         }
-    
+
                         .invoice-header h1 {
                             font-size: 2rem;
                             font-weight: bold;
                             color: #333;
                         }
-    
+
                         .invoice-details {
                             margin-bottom: 1rem;
                         }
-    
+
                         .invoice-details p {
                             margin: 0.5rem 0;
                         }
-    
+
                         .invoice-total {
                             display: flex;
                             justify-content: space-between;

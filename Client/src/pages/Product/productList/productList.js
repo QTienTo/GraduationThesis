@@ -41,13 +41,13 @@ const ProductList = () => {
     try {
       const response = await courtsManagementApi.getAllCourts();
       const approvedProducts = response.filter(product => product.approval_status === 'approved');
-  
+
       setProductDetail(approvedProducts);
     } catch (error) {
       console.error("Error fetching courts data: ", error);
     }
   };
-  
+
 
   useEffect(() => {
     (async () => {
@@ -129,7 +129,7 @@ const ProductList = () => {
                     key={item.id}
                     style={{ cursor: 'pointer' }}
                   >
-                   
+
 
                     <div className="show-product">
                       {item.image ? (

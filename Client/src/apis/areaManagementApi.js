@@ -50,7 +50,7 @@ const areaManagementApi = {
         }
     },
 
-   
+
 };
 
 export default areaManagementApi;

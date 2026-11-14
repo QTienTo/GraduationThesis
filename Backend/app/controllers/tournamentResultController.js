@@ -43,7 +43,7 @@ exports.updateTournamentResult = async (req, res) => {
         const query = `UPDATE tournament_results SET ${updateFields.join(', ')} WHERE id = ?`;
         values.push(id);
         await db.execute(query, values);
-        
+
         res.status(200).json({ id, tournament_id, result_info, image });
     } catch (error) {
         console.error(error);
@@ -84,7 +84,7 @@ exports.getTournamentResultById = async (req, res) => {
 exports.getAllTournamentResults = async (req, res) => {
     try {
         const [rows] = await db.execute(`
-            SELECT tr.*, t.name AS tournament_name 
+            SELECT tr.*, t.name AS tournament_name
             FROM tournament_results tr
             INNER JOIN tournaments t ON tr.tournament_id = t.id
         `);
@@ -114,12 +114,12 @@ exports.getTournamentResultsByUser = async (req, res) => {
     try {
         const userId = req.params.userId;
         const [rows] = await db.execute(`
-            SELECT tr.*, t.name AS tournament_name 
+            SELECT tr.*, t.name AS tournament_name
             FROM tournament_results tr
             INNER JOIN tournaments t ON tr.tournament_id = t.id
             WHERE t.id_users = ?
         `, [userId]);
-       
+
         res.status(200).json(rows);
     } catch (error) {
         console.error(error);

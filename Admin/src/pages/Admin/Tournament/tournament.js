@@ -62,12 +62,12 @@ const Tournament = () => {
                 "matches": values.matches,
                 "group_count": values.group_count,
                 "prizes": values.prizes,
-                "status": "active", 
-                "approval_status": "pending", 
+                "status": "active",
+                "approval_status": "pending",
                 "id_users": userData.id,
-                "image": file, 
+                "image": file,
             };
-            
+
             return tournamentApi.addTournament(tournamentInfo).then(response => {
                 if (response.message === "Asset with the same name already exists") {
                     notification["error"]({
@@ -111,10 +111,10 @@ const Tournament = () => {
                 "matches": values.matches,
                 "group_count": values.group_count,
                 "prizes": values.prizes,
-                "status": "active", 
-                "approval_status": "pending", 
+                "status": "active",
+                "approval_status": "pending",
                 "id_users": userData.id,
-                "image": file, 
+                "image": file,
             };
             return tournamentApi.updateTournament(tournamentInfo, id).then(response => {
                 if (response.message === "Asset with the same name already exists") {

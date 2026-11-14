@@ -80,7 +80,7 @@ const bookingApi = {
             throw error;
         }
     },
-    
+
 
 
     async getBookingByID(id) {
@@ -94,7 +94,7 @@ const bookingApi = {
         }
     },
 
-    
+
 };
 
 export default bookingApi;

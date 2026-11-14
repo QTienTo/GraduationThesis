@@ -6,7 +6,7 @@ const paypalController = {
             const requestBody1 = {
                 grant_type: 'client_credentials',
             };
-    
+
             // Gửi yêu cầu lấy Access Token
             const response1 = await axios.post(
                 'https://api.sandbox.paypal.com/v1/oauth2/token',
@@ -20,13 +20,13 @@ const paypalController = {
                     },
                 }
             );
-    
+
             // Lấy Access Token từ phản hồi
             const accessToken = response1.data.access_token;
-    
+
             // Lấy thông tin giá trị thanh toán và các chi tiết từ yêu cầu của client
             const { price, description, return_url, cancel_url } = req.body;
-    
+
             // Tạo đối tượng dữ liệu yêu cầu
             const requestBody = {
                 intent: 'sale',
@@ -47,7 +47,7 @@ const paypalController = {
                     cancel_url,
                 },
             };
-    
+
             // Gửi yêu cầu tạo thanh toán PayPal
             const response = await axios.post(
                 'https://api.sandbox.paypal.com/v1/payments/payment',
@@ -59,11 +59,11 @@ const paypalController = {
                     },
                 }
             );
-    
+
             // Lấy URL thanh toán từ phản hồi
             const { links } = response.data;
             const approvalUrl = links.find((link) => link.rel === 'approval_url').href;
-    
+
             // Trả về URL thanh toán cho client
             return res.json({ approvalUrl, accessToken });
         } catch (error) {
@@ -71,11 +71,11 @@ const paypalController = {
             return res.status(500).json({ message: 'Internal server error' });
         }
     },
-    
+
     executePayment: async (req, res) => {
         try {
           const { paymentId, token, PayerID } = req.query;
-      
+
           // Gửi yêu cầu lấy Access Token
         //   const requestBody1 = {
         //     grant_type: 'client_credentials',
@@ -93,7 +93,7 @@ const paypalController = {
         //     }
         //   );
         //   const accessToken = response1.data.access_token;
-      
+
           // Gửi yêu cầu execute payment
           const requestBody2 = {
             payer_id: PayerID,
@@ -108,7 +108,7 @@ const paypalController = {
               },
             }
           );
-      
+
           // Kiểm tra kết quả execute payment
           const { state } = response2.data;
           if (state === 'approved') {

@@ -135,7 +135,7 @@ const assetManagementApi = {
             throw error;
         }
     },
-    
+
     async submitSubmissionComment(assetId, userId, submissionComment) {
         const url = `assets/submitSubmissionComment`;
         try {
@@ -145,7 +145,7 @@ const assetManagementApi = {
             throw error;
         }
     },
-    
+
 }
 
 export default assetManagementApi;

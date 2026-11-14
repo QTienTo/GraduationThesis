@@ -11,7 +11,7 @@ exports.getRevenueReport = async (req, res) => {
         }
 
         let query = `
-            SELECT 
+            SELECT
                 courts.name AS court_name,
                 COUNT(bookings.id) AS booking_count,
                 SUM(bookings.total_amount) AS total_revenue
@@ -46,7 +46,7 @@ exports.bookCourt = async (req, res) => {
 
         // Lấy tất cả các đặt sân trong khoảng thời gian này của sân đó
         const [existingBookings] = await db.execute('SELECT * FROM bookings WHERE court_id = ? AND booking_date = ?', [court_id, booking_date]);
-        
+
         // Kiểm tra xem khoảng thời gian mới có chồng lên bất kỳ đặt sân nào khác không
         for (const booking of existingBookings) {
             const existingStartTime = moment(booking.start_time, 'HH:mm');
@@ -57,7 +57,7 @@ exports.bookCourt = async (req, res) => {
 
             // Kiểm tra xem thời gian đặt sân mới có chồng lên thời gian của các đặt sân khác không
             if (
-                (newStartTime.isBetween(existingStartTime, existingEndTime, undefined, '[)') || 
+                (newStartTime.isBetween(existingStartTime, existingEndTime, undefined, '[)') ||
                 newEndTime.isBetween(existingStartTime, existingEndTime, undefined, '(]')) ||
                 (existingStartTime.isBetween(newStartTime, newEndTime, undefined, '(]') ||
                 existingEndTime.isBetween(newStartTime, newEndTime, undefined, '[)'))
@@ -116,8 +116,8 @@ exports.getBookingByUserID = async (req, res) => {
         const user_id = req.params.user_id;
         console.log(user_id)
         const [rows] = await db.execute(`
-            SELECT 
-                bookings.*, 
+            SELECT
+                bookings.*,
                 courts.name AS court_name,
                 users.username AS user_name,
                 users.phone AS phone,
@@ -126,7 +126,7 @@ exports.getBookingByUserID = async (req, res) => {
             INNER JOIN courts ON bookings.court_id = courts.id
             INNER JOIN users ON bookings.user_id = users.id
             INNER JOIN users AS owners ON courts.id_users = owners.id
-            WHERE bookings.user_id = ? 
+            WHERE bookings.user_id = ?
         `, [user_id]);
         res.status(200).json(rows);
     } catch (error) {
@@ -141,10 +141,10 @@ exports.getBookingByUserCourtsID = async (req, res) => {
         const user_id = req.params.user_id;
         console.log(user_id);
         const [rows] = await db.execute(`
-            SELECT b.*, 
-                   courts.name AS court_name, 
-                   users.username AS user_name, 
-                   users.phone AS phone, 
+            SELECT b.*,
+                   courts.name AS court_name,
+                   users.username AS user_name,
+                   users.phone AS phone,
                    owners.username AS owner_name
             FROM bookings b
             INNER JOIN courts ON b.court_id = courts.id
@@ -178,8 +178,8 @@ exports.getBookingByID = async (req, res) => {
     try {
         const bookingId = req.params.id;
         const [rows] = await db.execute(`
-            SELECT 
-                bookings.*, 
+            SELECT
+                bookings.*,
                 courts.name AS court_name,
                 users.username AS user_name,
                 owners.username AS owner_name
