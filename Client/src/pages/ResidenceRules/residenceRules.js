@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosClient from '../../apis/axiosClient';
 
 const ResidenceRules = () => {
   const [rules, setRules] = useState([]);
@@ -7,8 +7,9 @@ const ResidenceRules = () => {
   useEffect(() => {
     const fetchRules = async () => {
       try {
-        const response = await axios.get('http://localhost:3100/api/residence-rules');
-        setRules(response.data);
+        // axiosClient đã gắn sẵn baseURL từ REACT_APP_API_URL và trả về response.data
+        const response = await axiosClient.get('/residence-rules');
+        setRules(response);
       } catch (error) {
         console.error("There was an error fetching the rules!", error);
       }

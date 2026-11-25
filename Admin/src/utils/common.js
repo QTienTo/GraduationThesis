@@ -21,6 +21,6 @@ export const getBase64 = (img, callback) => {
 }
 
 export const baseUrl = () => {
-    return "http://34.126.163.0:3000/api/v1";
+    return process.env.REACT_APP_API_URL || "http://localhost:3100/api";
 }
 

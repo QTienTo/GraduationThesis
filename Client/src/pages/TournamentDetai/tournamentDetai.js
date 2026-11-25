@@ -33,10 +33,10 @@ const TournamentDetail = () => {
           <div className="p-4">
             <Breadcrumb separator=">">
               <Breadcrumb.Item>
-                <a href="http://localhost:3500/home">Trang chủ</a>
+                <a href="/home">Trang chủ</a>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
-                <a href="http://localhost:3500/tournament">Kết quả giải đấu</a>
+                <a href="/tournament">Kết quả giải đấu</a>
               </Breadcrumb.Item>
               <Breadcrumb.Item>{tournament?.name}</Breadcrumb.Item>
             </Breadcrumb>

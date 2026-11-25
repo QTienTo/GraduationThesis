@@ -1,11 +1,15 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const mysql = require("mysql2");
 const app = express();
-// Cấu hình CORS
+// Cấu hình CORS — origin đọc từ biến môi trường CORS_ORIGINS (chuỗi phân tách bằng dấu phẩy)
+const corsOrigins = (process.env.CORS_ORIGINS || "http://localhost:3000,http://localhost:3005,http://localhost:3500")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3005'],
+  origin: corsOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -18,21 +22,7 @@ app.use(express.static("public"));
 
 require("./app/models/createTables");
 
-// Thay đổi kết nối cơ sở dữ liệu
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "123456", //kma123
-  database: "goalguard",
-});
-
-db.connect((err) => {
-  if (err) {
-    console.error("MySQL connection error:", err);
-  } else {
-    console.log("Connected to MySQL.");
-  }
-});
+// Kết nối MySQL dùng pool duy nhất ở ./app/config/db.js (không còn createConnection riêng ở đây)
 
 const authRoute = require("./app/routers/auth");
 const userRoute = require("./app/routers/user");

@@ -30,10 +30,10 @@ const NewsDetai = () => {
           <div className="product_detail">
             <div style={{ marginLeft: 5, marginBottom: 10, marginTop: 10 }}>
               <Breadcrumb>
-                <Breadcrumb.Item href="http://localhost:3500/home">
+                <Breadcrumb.Item href="/home">
                   <span>Trang chủ</span>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item href="http://localhost:3500/news">
+                <Breadcrumb.Item href="/news">
                   <span>Tin tức</span>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item href="">

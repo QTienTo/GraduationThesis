@@ -29,7 +29,7 @@ const RegisterCustomer = () => {
                 "role": "isClient",
                 "status": "noactive"
             }
-            await axiosClient.post("http://localhost:3100/api/auth/register", formatData)
+            await axiosClient.post("/auth/register", formatData)
                 .then(response => {
                     console.log(response);
                     if (response === "Email is exist") {

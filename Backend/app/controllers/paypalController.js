@@ -1,5 +1,10 @@
 const axios = require('axios');
 
+// Base URL PayPal đọc từ biến môi trường (mặc định Sandbox).
+// CẢNH BÁO: cặp key PayPal cũ đã lộ trên repo public — phải xoay và đặt lại
+// trong .env (PAYPAL_CLIENT_ID / PAYPAL_CLIENT_SECRET), không hard-code.
+const PAYPAL_API_BASE = process.env.PAYPAL_API_BASE || 'https://api.sandbox.paypal.com';
+
 const paypalController = {
     payment: async (req, res) => {
         try {
@@ -9,13 +14,13 @@ const paypalController = {
     
             // Gửi yêu cầu lấy Access Token
             const response1 = await axios.post(
-                'https://api.sandbox.paypal.com/v1/oauth2/token',
+                `${PAYPAL_API_BASE}/v1/oauth2/token`,
                 requestBody1,
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         Authorization: `Basic ${Buffer.from(
-                            `AeyFK0Tomu06wnDGB4dmS3LMICoI_YezaWZBdHy6upiZ3S1YBDbmeJdKEQG2hXKnNf-XYcCE2lOgpVd2:EGAT2t45s_W_D3vF73RkfG_TJcGKg1FeBoLeygeexDcokCNYXeLPmxqQSJ3Tba7WA3CwzW80rZnQ8-Uj`
+                            `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_CLIENT_SECRET}`
                         ).toString('base64')}`,
                     },
                 }
@@ -50,7 +55,7 @@ const paypalController = {
     
             // Gửi yêu cầu tạo thanh toán PayPal
             const response = await axios.post(
-                'https://api.sandbox.paypal.com/v1/payments/payment',
+                `${PAYPAL_API_BASE}/v1/payments/payment`,
                 requestBody,
                 {
                     headers: {
@@ -74,37 +79,38 @@ const paypalController = {
     
     executePayment: async (req, res) => {
         try {
-          const { paymentId, token, PayerID } = req.query;
+          const { paymentId, PayerID } = req.query;
       
           // Gửi yêu cầu lấy Access Token
-        //   const requestBody1 = {
-        //     grant_type: 'client_credentials',
-        //   };
-        //   const response1 = await axios.post(
-        //     'https://api.sandbox.paypal.com/v1/oauth2/token',
-        //     requestBody1,
-        //     {
-        //       headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded',
-        //         Authorization: `Basic ${Buffer.from(
-        //           `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_CLIENT_SECRET}`
-        //         ).toString('base64')}`,
-        //       },
-        //     }
-        //   );
-        //   const accessToken = response1.data.access_token;
+          const requestBody1 = {
+            grant_type: 'client_credentials',
+          };
+          const response1 = await axios.post(
+            `${PAYPAL_API_BASE}/v1/oauth2/token`,
+            requestBody1,
+            {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: `Basic ${Buffer.from(
+                  `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_CLIENT_SECRET}`
+                ).toString('base64')}`,
+              },
+            }
+          );
+          const accessToken = response1.data.access_token;
       
           // Gửi yêu cầu execute payment
           const requestBody2 = {
             payer_id: PayerID,
           };
           const response2 = await axios.post(
-            `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute`,
+            `${PAYPAL_API_BASE}/v1/payments/payment/${paymentId}/execute`,
             requestBody2,
             {
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
+                // Dùng access token mới lấy ở trên (không dùng token client truyền qua query nữa)
+                Authorization: `Bearer ${accessToken}`,
               },
             }
           );

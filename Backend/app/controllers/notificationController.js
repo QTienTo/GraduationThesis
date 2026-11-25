@@ -1,5 +1,5 @@
 const db = require('../config/db');
-const nodemailer = require('nodemailer');
+const { createTransporter } = require('../config/mailer');
 
 const notificationController = {
     createNotificationByEmail: async (req, res) => {
@@ -14,14 +14,7 @@ const notificationController = {
 
             const notificationId = notificationRows.insertId;
 
-            const transporter = nodemailer.createTransport({
-                host: 'smtp-relay.brevo.com',
-                port: '587',
-                auth: {
-                    user: 'h5studiogl@gmail.com',
-                    pass: 'fScdnZ4WmEDqjBA1',
-                },
-            });
+            const transporter = createTransporter();
 
             // Vòng lặp qua từng địa chỉ email trong mảng emails
             for (const email of emails) {
@@ -59,14 +52,7 @@ const notificationController = {
 
             const notificationId = notificationRows.insertId;
 
-            const transporter = nodemailer.createTransport({
-                host: 'smtp-relay.brevo.com',
-                port: '587',
-                auth: {
-                    user: 'h5studiogl@gmail.com',
-                    pass: 'fScdnZ4WmEDqjBA1',
-                },
-            });
+            const transporter = createTransporter();
 
             const [userRows] = await db.execute('SELECT * FROM users WHERE role = ?', [role]);
 

@@ -2,3 +2,6 @@
 node_modules/
 jspm_packages/
 
+# Secrets — không commit file .env (chỉ commit .env.example)
+.env
+

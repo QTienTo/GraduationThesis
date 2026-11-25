@@ -2,7 +2,7 @@ const db = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _const = require("../config/constant");
-const nodemailer = require("nodemailer");
+const { createTransporter } = require("../config/mailer");
 const crypto = require("crypto");
 
 const authController = {
@@ -100,11 +100,14 @@ const authController = {
           .json({ message: "Unregistered account!", status: false });
       }
 
-      let resetURL = "http://localhost:3500"; // URL mặc định
+      // URL frontend dùng trong link reset password — đọc từ biến môi trường
+      const clientUrl = (process.env.CLIENT_URL || "http://localhost:3500").replace(/\/$/, "");
+      const adminUrl = (process.env.ADMIN_URL || "http://localhost:3000").replace(/\/$/, "");
+      let resetURL = clientUrl;
 
       // Kiểm tra xem user có vai trò là isAdmin không
       if (user.role === "isAdmin") {
-        resetURL = "http://localhost:3000";
+        resetURL = adminUrl;
       }
 
       await db.execute(
@@ -112,14 +115,7 @@ const authController = {
         [user.id, token, new Date(Date.now() + 3600000)] // Thời gian hết hạn sau 1 giờ
       );
 
-      const transporter = nodemailer.createTransport({
-        host: "smtp-relay.brevo.com",
-        port: "587",
-        auth: {
-          user: "h5studiogl@gmail.com",
-          pass: "fScdnZ4WmEDqjBA1",
-        },
-      });
+      const transporter = createTransporter();
 
       const mailOptions = {
         from: "coms@gmail.com",
@@ -203,14 +199,7 @@ const authController = {
       const notificationId = notificationRows.insertId;
 
       // Gửi thông báo đến tất cả người dùng có vai trò là "resident"
-      const transporter = nodemailer.createTransport({
-        host: "smtp-relay.brevo.com",
-        port: "587",
-        auth: {
-          user: "h5studiogl@gmail.com",
-          pass: "fScdnZ4WmEDqjBA1",
-        },
-      });
+      const transporter = createTransporter();
 
       for (const user of userRows) {
         const mailOptions = {

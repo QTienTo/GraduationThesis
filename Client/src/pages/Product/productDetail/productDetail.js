@@ -193,11 +193,11 @@ const ProductDetail = () => {
                     <div className="product_detail">
                         <div style={{ marginLeft: 5, marginBottom: 10 }}>
                             <Breadcrumb>
-                                <Breadcrumb.Item href="http://localhost:3500/home">
+                                <Breadcrumb.Item href="/home">
                                     {/* <HomeOutlined /> */}
                                     <span>Trang chủ</span>
                                 </Breadcrumb.Item>
-                                <Breadcrumb.Item href="http://localhost:3500/product-list/643cd88879b4192efedda4e6">
+                                <Breadcrumb.Item href="/product-list/643cd88879b4192efedda4e6">
                                     {/* <AuditOutlined /> */}
                                     <span>sân bóng</span>
                                 </Breadcrumb.Item>

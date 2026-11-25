@@ -1,0 +1,2 @@
+# Secrets — không commit file .env (chỉ commit .env.example)
+.env
